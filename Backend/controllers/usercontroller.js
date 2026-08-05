@@ -14,7 +14,7 @@ export const register = async (req, res) => {
       });
     }
 
-    const fileUri = getDataUri(file)
+    const fileUri = getDataUri(file);
     const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
     const user = await User.findOne({ email });
     if (user) {
@@ -30,9 +30,9 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
-      profile:{
-        profilePhoto:cloudResponse.secure_url,
-      }
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
     });
     return res.status(201).json({
       message: `user ${fullName} registered successfully`,
@@ -40,6 +40,10 @@ export const register = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
 };
 
@@ -103,6 +107,10 @@ export const login = async (req, res) => {
       });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
 };
 
@@ -113,7 +121,11 @@ export const logout = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(console.error());
+    console.log(error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
 };
 
