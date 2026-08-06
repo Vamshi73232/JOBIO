@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import React from "react";
-import {Button} from "./ui/Button.jsx";
+import {Button} from "./ui/button.jsx";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
